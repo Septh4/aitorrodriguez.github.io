@@ -222,21 +222,6 @@
             border: 1px solid var(--border);
         }
 
-        .image-row.three {
-            grid-template-columns: repeat(3, 1fr);
-        }
-
-        /* Full width image */
-        .image-full {
-            margin: 50px 0;
-        }
-
-        .image-full img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
         /* Room showcase */
         .rooms-grid {
             display: grid;
@@ -263,6 +248,45 @@
         .character-showcase img {
             width: 100%;
             height: auto;
+        }
+
+        /* Video */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            margin: 40px 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Links */
+        .link-btn {
+            display: inline-block;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 12px 24px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            background: var(--accent);
+            color: var(--bg);
+            margin-top: 20px;
+        }
+
+        .link-btn:hover {
+            background: var(--text);
         }
 
         /* Footer */
@@ -301,15 +325,7 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .image-row {
-                grid-template-columns: 1fr;
-            }
-
-            .image-row.three {
-                grid-template-columns: 1fr;
-            }
-
-            .rooms-grid {
+            .image-row, .rooms-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -362,7 +378,7 @@
                 </div>
                 <div class="meta-item">
                     <span class="meta-label">Tools</span>
-                    <span class="meta-value">Blender</span>
+                    <span class="meta-value">Blender, Godot 3.6</span>
                 </div>
                 <div class="meta-item">
                     <span class="meta-label">Status</span>
@@ -405,6 +421,16 @@
                 <img src="images/lowpolydungeon/character_presentation.png" alt="Character stats and abilities">
                 <p class="image-caption">Character design document with stats, abilities, and cooldowns for each playable character</p>
             </div>
+
+            <!-- Skeleton Optimization -->
+            <div class="text-block" style="margin-top: 50px;">
+                <p>For optimization purposes, all characters in the game share a single skeleton rig. This allows for efficient animation reuse and reduces memory overhead — critical for a small indie project targeting smooth multiplayer performance.</p>
+            </div>
+
+            <div class="image-single">
+                <img src="images/lowpolydungeon/skeleton.png" alt="Shared skeleton system in Blender">
+                <p class="image-caption">Blender setup showing the shared skeleton system — all characters, enemies, and weapons use the same armature</p>
+            </div>
         </section>
 
         <!-- Level Design -->
@@ -422,11 +448,6 @@
             <div class="rooms-grid">
                 <img src="images/lowpolydungeon/second_room.png" alt="Dungeon room overview">
                 <img src="images/lowpolydungeon/third_room.jpeg" alt="Dungeon room with characters">
-            </div>
-
-            <div class="image-row">
-                <img src="images/lowpolydungeon/first_room.PNG" alt="First room in Blender">
-                <img src="images/lowpolydungeon/room_fight.png" alt="Combat encounter">
             </div>
         </section>
 
@@ -452,6 +473,34 @@
                     <p class="image-caption">Zabyr texture atlas</p>
                 </div>
             </div>
+        </section>
+
+        <!-- Gameplay Video -->
+        <section class="section">
+            <h2 class="section-title">Gameplay Test</h2>
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/xPzktJNdl-c" 
+                    title="Low Poly Dungeon Gameplay Test"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <!-- Remake -->
+        <section class="section">
+            <h2 class="section-title">Character Remake</h2>
+            <div class="text-block">
+                <p>Some time after the project went dormant, I went back and remade the character style. I always had that perfectionist tick thinking that the UVs of the characters at that time were shit — so I rebuilt them with cleaner topology and proper UV unwrapping.</p>
+            </div>
+
+            <div class="image-single">
+                <img src="images/lowpolydungeon/remake.png" alt="Remade character with UV checker">
+                <p class="image-caption">Rebuilt character base with clean UV layout</p>
+            </div>
+
+            <a href="https://opengameart.org/content/old-dungeon-characters" target="_blank" class="link-btn">Download Characters on OpenGameArt</a>
         </section>
     </div>
 
