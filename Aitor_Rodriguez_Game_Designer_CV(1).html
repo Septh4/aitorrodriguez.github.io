@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aitor Rodriguez - Game Designer</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111;
+            --text: #e8e8e8;
+            --text-dim: #888;
+            --accent: #00ff88;
+            --accent-dim: #00aa5a;
+            --border: #222;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 15px;
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        /* Header */
+        header {
+            margin-bottom: 50px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .name {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 42px;
+            font-weight: 600;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+
+        .title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 24px;
+        }
+
+        .contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            color: var(--text-dim);
+        }
+
+        .contact a {
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .contact a:hover {
+            color: var(--accent);
+        }
+
+        /* Profile */
+        .profile {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: var(--surface);
+            border-left: 3px solid var(--accent);
+        }
+
+        .profile p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        /* Section */
+        section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--accent);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Project */
+        .project {
+            margin-bottom: 35px;
+            padding-left: 20px;
+            border-left: 1px solid var(--border);
+            transition: border-color 0.2s;
+        }
+
+        .project:hover {
+            border-left-color: var(--accent-dim);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .project-title {
+            font-weight: 500;
+            font-size: 17px;
+        }
+
+        .project-meta {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        .project-subtitle {
+            font-size: 13px;
+            color: var(--text-dim);
+            margin-bottom: 12px;
+        }
+
+        .project-description {
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            padding: 4px 10px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .skill-category h4 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text);
+            margin-bottom: 15px;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            font-size: 14px;
+            color: var(--text-dim);
+            padding: 6px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .skill-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Experience */
+        .exp-item {
+            margin-bottom: 30px;
+            padding-left: 20px;
+            border-left: 1px solid var(--border);
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .exp-title {
+            font-weight: 500;
+        }
+
+        .exp-date {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        .exp-company {
+            font-size: 13px;
+            color: var(--accent-dim);
+            margin-bottom: 8px;
+        }
+
+        .exp-description {
+            font-size: 14px;
+            color: var(--text-dim);
+        }
+
+        /* Education */
+        .edu-item {
+            margin-bottom: 20px;
+        }
+
+        .edu-title {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .edu-institution {
+            font-size: 13px;
+            color: var(--text-dim);
+        }
+
+        /* Languages */
+        .lang-grid {
+            display: flex;
+            gap: 40px;
+        }
+
+        .lang-item {
+            font-size: 14px;
+        }
+
+        .lang-name {
+            color: var(--text);
+        }
+
+        .lang-level {
+            color: var(--text-dim);
+            font-size: 13px;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .quote {
+            font-style: italic;
+            color: var(--text-dim);
+            font-size: 14px;
+        }
+
+        .quote-author {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--text-dim);
+            margin-top: 8px;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                color: #111;
+            }
+            .container {
+                padding: 20px;
+            }
+            :root {
+                --bg: white;
+                --surface: #f5f5f5;
+                --text: #111;
+                --text-dim: #555;
+                --accent: #006644;
+                --accent-dim: #008855;
+                --border: #ddd;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+            .name {
+                font-size: 32px;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="name">Aitor Rodriguez</h1>
+            <div class="title">Game Designer · Level Design & Narrative Systems</div>
+            <div class="contact">
+                <span>Argelaguer, Catalunya</span>
+                <span>+34 648 580 124</span>
+                <a href="mailto:aitormiren@gmail.com">aitormiren@gmail.com</a>
+                <a href="https://space-pirate-resistance.itch.io/" target="_blank">itch.io</a>
+                <a href="https://cults3d.com/es/usuarios/Septha/modelos-3d" target="_blank">Cults3D</a>
+            </div>
+        </header>
+
+        <div class="profile">
+            <p>Game designer with 10+ years of hands-on experience in narrative design, level design, and game systems creation. Unique combination of creative vision (published RPG author, escape room designer with 500+ participants) and technical execution (3D modeling, digital fabrication, production pipelines). Specialized in immersive experiences and interactive storytelling. Currently developing in Godot 4.3.</p>
+        </div>
+
+        <section>
+            <h2 class="section-title">Game Design Projects</h2>
+
+            <div class="project">
+                <div class="project-header">
+                    <span class="project-title">Space Killing — Tabletop RPG</span>
+                    <span class="project-meta">2016 — Present</span>
+                </div>
+                <div class="project-subtitle">Author & Game Designer · Publishing on DriveThruRPG</div>
+                <p class="project-description">Complete game system design: combat mechanics, character progression, stat balancing. Original narrative universe with detailed worldbuilding influenced by H.R. Giger and Warhammer. 250+ pages written entirely in English. Professional layout and editorial preparation.</p>
+                <div class="project-tags">
+                    <span class="tag">Game Systems Design</span>
+                    <span class="tag">Narrative Design</span>
+                    <span class="tag">Worldbuilding</span>
+                    <span class="tag">Technical Writing</span>
+                </div>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <span class="project-title">Escape Room — Museu dels Sants d'Olot</span>
+                    <span class="project-meta">2022 — 2024</span>
+                </div>
+                <div class="project-subtitle">Lead Designer · Ongoing weekend attraction</div>
+                <p class="project-description">Complete redesign of the experience: level design, player flow, difficulty curve. Puzzle design with multiple solutions and immediate feedback. Developed custom interactive app for participants. Iterative testing with real users, optimization based on metrics. Consolidated as a permanent activity with 500+ players.</p>
+                <div class="project-tags">
+                    <span class="tag">Level Design</span>
+                    <span class="tag">Puzzle Design</span>
+                    <span class="tag">UX/Player Experience</span>
+                    <span class="tag">App Development</span>
+                </div>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <span class="project-title">L'Enigma del Samurai — Escape Room</span>
+                    <span class="project-meta">2009</span>
+                </div>
+                <div class="project-subtitle">Designer · Museum exhibition opening event</div>
+                <p class="project-description">Game mechanics design for groups of 4-8 players. Created puzzles with coherent narrative progression. Set design and physical props integrated with gameplay. Coordinated nocturnal inaugural event for temporary exhibition.</p>
+                <div class="project-tags">
+                    <span class="tag">Puzzle Design</span>
+                    <span class="tag">Environmental Storytelling</span>
+                    <span class="tag">Event Design</span>
+                </div>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <span class="project-title">Space Pirate Resistance</span>
+                    <span class="project-meta">Game Jam</span>
+                </div>
+                <div class="project-subtitle">Designer & 3D Artist · Published on itch.io</div>
+                <p class="project-description">Asset creation for game jam project: character design, 3D modeling, texturing, and animation. Discovered industrial design through using Blender for game development.</p>
+                <div class="project-tags">
+                    <span class="tag">3D Modeling</span>
+                    <span class="tag">Character Design</span>
+                    <span class="tag">Texturing</span>
+                    <span class="tag">Animation</span>
+                </div>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <span class="project-title">Calabor — Live-Action Roleplay Events</span>
+                    <span class="project-meta">5 Years</span>
+                </div>
+                <div class="project-subtitle">Organizer & Game Designer · La Garrotxa region</div>
+                <p class="project-description">Organized live-action roleplay events for 5 years. Designed rule systems, scenarios, and player progression. Physical prop creation and set design. Event logistics and player coordination for recurring community events.</p>
+                <div class="project-tags">
+                    <span class="tag">Game Systems</span>
+                    <span class="tag">Event Design</span>
+                    <span class="tag">Prop Making</span>
+                    <span class="tag">Community Building</span>
+                </div>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <span class="project-title">Cults3D — 3D Model Creation</span>
+                    <span class="project-meta">2020 — Present</span>
+                </div>
+                <div class="project-subtitle">3D Designer · Online Platform</div>
+                <p class="project-description">Creation and publication of 3D models optimized for printing and laser cutting. Community of 500+ followers with 15,000+ accumulated downloads. Modular and parametric design for user customization. Community feedback management and design iteration.</p>
+                <div class="project-tags">
+                    <span class="tag">3D Modeling</span>
+                    <span class="tag">Asset Creation</span>
+                    <span class="tag">Community Management</span>
+                </div>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <span class="project-title">Wargame Terrain & Scenography</span>
+                    <span class="project-meta">Ongoing</span>
+                </div>
+                <div class="project-subtitle">Physical Game Design · Personal Projects</div>
+                <p class="project-description">Design and fabrication of tabletop wargaming terrain using laser cutting and 3D printing. Understanding of spatial gameplay, line-of-sight mechanics, and environmental game design.</p>
+                <div class="project-tags">
+                    <span class="tag">Level Design</span>
+                    <span class="tag">Digital Fabrication</span>
+                    <span class="tag">Spatial Design</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h4>Game Design</h4>
+                    <ul class="skill-list">
+                        <li>Game Systems Design (mechanics, balancing, progression)</li>
+                        <li>Level Design (spatial flow, pacing, difficulty curves)</li>
+                        <li>Narrative Design (worldbuilding, interactive storytelling)</li>
+                        <li>Puzzle Design (logic, feedback, learning curves)</li>
+                        <li>Player Experience / UX (playtesting, data-driven iteration)</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h4>Technical</h4>
+                    <ul class="skill-list">
+                        <li>Godot 4.3 / GDScript</li>
+                        <li>Blender (modeling, texturing, animation)</li>
+                        <li>SolidWorks, AutoCAD, Rhino</li>
+                        <li>Adobe Suite (Photoshop, Illustrator, InDesign)</li>
+                        <li>Digital Fabrication (3D printing, laser, CNC)</li>
+                        <li>Technical Documentation (GDD, flowcharts, system diagrams)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Relevant Experience</h2>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span class="exp-title">Colony Coordinator</span>
+                    <span class="exp-date">2022 — 2025</span>
+                </div>
+                <div class="exp-company">Sortim</div>
+                <p class="exp-description">Coordination of educational teams ensuring proper functioning of activities with children and adolescents. Incident resolution in high-responsibility environments. Leadership and team management.</p>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span class="exp-title">Technical Draftsman</span>
+                    <span class="exp-date">2022</span>
+                </div>
+                <div class="exp-company">Mecàniques Besora</div>
+                <p class="exp-description">Conversion and optimization of plasma cutting files to laser, reducing production errors. Technical drawings for manufacturing. Understanding of production pipelines and tolerances.</p>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span class="exp-title">Drafting & Production Intern</span>
+                    <span class="exp-date">2021</span>
+                </div>
+                <div class="exp-company">Can Make, Les Preses</div>
+                <p class="exp-description">CNC operation, laser cutting, and manual piece manipulation. Hands-on experience with digital fabrication tools and production workflows.</p>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span class="exp-title">RPG Activity Organizer</span>
+                    <span class="exp-date">3 Years</span>
+                </div>
+                <div class="exp-company">IES Garrotxa (Unofficial)</div>
+                <p class="exp-description">Created and ran tabletop RPG activities for students. Didn't like available options, so created my own. Given creative freedom by teachers who trusted my initiative.</p>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span class="exp-title">Student Association President</span>
+                    <span class="exp-date">2015 — 2018</span>
+                </div>
+                <div class="exp-company">Assofia — Universitat de Girona</div>
+                <p class="exp-description">Organized author talks, poetry readings, and cultural events. Coordination with university administration. Project management and team organization.</p>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span class="exp-title">Reenactment Group Member</span>
+                    <span class="exp-date">Multiple Years</span>
+                </div>
+                <div class="exp-company">Alma Cubrae, Banyoles</div>
+                <p class="exp-description">Medieval fair performances across Catalunya. Workshop contribution: leather and metal craft, armor pieces, amulets. Background acting for TV3 and Telecinco productions.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Education</h2>
+
+            <div class="edu-item">
+                <div class="edu-title">CFGS Modelism & Maquetry</div>
+                <div class="edu-institution">Escola Llotja, Barcelona · 2019 — 2021</div>
+            </div>
+
+            <div class="edu-item">
+                <div class="edu-title">Philosophy (3rd year, unfinished)</div>
+                <div class="edu-institution">Universitat de Girona · 2015 — 2018</div>
+            </div>
+
+            <div class="edu-item">
+                <div class="edu-title">Artistic Baccalaureate</div>
+                <div class="edu-institution">INS Brugulat, Banyoles · 2011 — 2014</div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Languages</h2>
+            <div class="lang-grid">
+                <div class="lang-item">
+                    <span class="lang-name">Catalan</span>
+                    <span class="lang-level">— Native</span>
+                </div>
+                <div class="lang-item">
+                    <span class="lang-name">Spanish</span>
+                    <span class="lang-level">— Native</span>
+                </div>
+                <div class="lang-item">
+                    <span class="lang-name">English</span>
+                    <span class="lang-level">— Upper-Intermediate</span>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p class="quote">"Where the willingness is great, the difficulties cannot be great."</p>
+            <p class="quote-author">— Machiavelli</p>
+        </footer>
+    </div>
+</body>
+</html>
