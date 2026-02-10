@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bushi: L'Enigma del Samurai - Aitor Rodriguez</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111;
+            --text: #e8e8e8;
+            --text-dim: #888;
+            --accent: #00ff88;
+            --accent-dim: #00aa5a;
+            --border: #222;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 15px;
+            font-weight: 300;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, transparent 100%);
+        }
+
+        .back-link {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .nav-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-dim);
+        }
+
+        /* Hero Banner */
+        .hero {
+            width: 100%;
+            height: 70vh;
+            min-height: 500px;
+            position: relative;
+            overflow: hidden;
+            background: #050505;
+        }
+
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 80px 40px 60px;
+            background: linear-gradient(to top, rgba(10,10,10,1) 0%, rgba(10,10,10,0.8) 50%, transparent 100%);
+        }
+
+        .hero-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 48px;
+            font-weight: 600;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .hero-subtitle {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            font-size: 14px;
+            color: var(--text-dim);
+        }
+
+        .meta-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .meta-value {
+            color: var(--text);
+        }
+
+        /* Content */
+        .content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--accent);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Text blocks */
+        .text-block {
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+
+        .text-block p {
+            font-size: 16px;
+            line-height: 1.9;
+            color: var(--text);
+            margin-bottom: 20px;
+        }
+
+        .text-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            padding: 6px 14px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+        }
+
+        /* Feature list */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .feature {
+            padding: 25px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+        }
+
+        .feature-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            color: var(--text-dim);
+            line-height: 1.7;
+        }
+
+        /* Image layouts */
+        .image-single {
+            margin: 40px 0;
+        }
+
+        .image-single img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid var(--border);
+        }
+
+        .image-caption {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--text-dim);
+            margin-top: 12px;
+        }
+
+        /* Video */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            margin: 40px 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Links */
+        .links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .link-btn {
+            display: inline-block;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 12px 24px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .link-btn.primary {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        .link-btn.primary:hover {
+            background: var(--text);
+        }
+
+        .link-btn.secondary {
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+        }
+
+        .link-btn.secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 20px;
+        }
+
+        .footer-nav a {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--text-dim);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.2s;
+        }
+
+        .footer-nav a:hover {
+            color: var(--accent);
+        }
+
+        .footer-text {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .hero {
+                height: 50vh;
+                min-height: 350px;
+            }
+
+            .hero-overlay {
+                padding: 60px 20px 40px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .content {
+                padding: 40px 20px;
+            }
+
+            .hero-meta {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="projects.html" class="back-link">← Projects</a>
+        <span class="nav-title">Bushi</span>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="hero">
+        <img src="images/bushi/museu.jpg" alt="Cambra de Meravelles exhibition at Museu de la Garrotxa">
+        <div class="hero-overlay">
+            <div class="hero-subtitle">Museum Experience Design</div>
+            <h1 class="hero-title">Bushi: L'Enigma del Samurai</h1>
+            <div class="hero-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Role</span>
+                    <span class="meta-value">Experience Designer</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Client</span>
+                    <span class="meta-value">Museu de la Garrotxa, Olot</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Type</span>
+                    <span class="meta-value">Immersive RPG Event</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="content">
+        <!-- Overview -->
+        <section class="section">
+            <h2 class="section-title">The Event</h2>
+            <div class="text-block">
+                <p>Bushi: L'Enigma del Samurai was a live-action puzzle experience designed for the Museu de la Garrotxa in Olot. The event was created for the inauguration of the "Cambra de Meravelles" (Cabinet of Curiosities) exhibition, with the goal of attracting younger audiences to the museum.</p>
+                <p>Small groups of participants entered the museum at night and were transported into a fantastical world where a samurai asked for their help. The mission: find his lost katana. To succeed, players had to interact with costumed characters representing figures from different historical periods — a Carlist soldier, a Viking, a medieval monk — each connected to artifacts displayed in the exhibition.</p>
+            </div>
+            <div class="tags">
+                <span class="tag">Experience Design</span>
+                <span class="tag">Puzzle Design</span>
+                <span class="tag">Live-Action RPG</span>
+                <span class="tag">Museum Engagement</span>
+                <span class="tag">Event Organization</span>
+                <span class="tag">Narrative Design</span>
+            </div>
+        </section>
+
+        <!-- Design Elements -->
+        <section class="section">
+            <h2 class="section-title">Design Elements</h2>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-title">Narrative Framework</div>
+                    <div class="feature-desc">A samurai's lost katana becomes the central mystery, giving players a clear goal that ties together the museum's diverse collection.</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-title">Character Actors</div>
+                    <div class="feature-desc">Costumed performers played historical figures — each linked to exhibition pieces, creating personal connections to the artifacts.</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-title">Puzzle Chain</div>
+                    <div class="feature-desc">Groups solved interconnected enigmas, with each character providing clues that led to the next, building toward the final reveal.</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-title">Night Setting</div>
+                    <div class="feature-desc">Running the event after hours transformed the museum space, creating atmosphere and exclusivity that enhanced immersion.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Samurai Image -->
+        <section class="section">
+            <h2 class="section-title">The Samurai</h2>
+            <div class="image-single">
+                <img src="images/bushi/samurai_button.jpg" alt="Samurai armor from the exhibition">
+                <p class="image-caption">The samurai armor from the Cambra de Meravelles exhibition — the central character of the experience</p>
+            </div>
+        </section>
+
+        <!-- Video -->
+        <section class="section">
+            <h2 class="section-title">Event Documentation</h2>
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/ycOfY4acTQA?start=85" 
+                    title="Bushi: L'Enigma del Samurai"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <!-- Impact -->
+        <section class="section">
+            <h2 class="section-title">Outcome</h2>
+            <div class="text-block">
+                <p>The event successfully engaged younger visitors with museum content through play. By turning passive observation into active participation, players formed memorable connections with historical artifacts they might otherwise have walked past. This was the first of several escape room-style experiences I designed for cultural institutions.</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-nav">
+            <a href="index.html">CV</a>
+            <a href="projects.html">All Projects</a>
+        </div>
+        <p class="footer-text">Aitor Rodriguez · Game Designer</p>
+    </footer>
+</body>
+</html>
