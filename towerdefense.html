@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elven Tower Defense - Aitor Rodriguez</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111;
+            --text: #e8e8e8;
+            --text-dim: #888;
+            --accent: #00ff88;
+            --accent-dim: #00aa5a;
+            --border: #222;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 15px;
+            font-weight: 300;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, transparent 100%);
+        }
+
+        .back-link {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .nav-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-dim);
+        }
+
+        /* Hero Banner */
+        .hero {
+            width: 100%;
+            height: 60vh;
+            min-height: 450px;
+            position: relative;
+            overflow: hidden;
+            background: #1a2810;
+        }
+
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 80px 40px 60px;
+            background: linear-gradient(to top, rgba(10,10,10,1) 0%, rgba(10,10,10,0.8) 50%, transparent 100%);
+        }
+
+        .hero-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 48px;
+            font-weight: 600;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .hero-subtitle {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            font-size: 14px;
+            color: var(--text-dim);
+        }
+
+        .meta-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .meta-value {
+            color: var(--text);
+        }
+
+        /* Content */
+        .content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--accent);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Text blocks */
+        .text-block {
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+
+        .text-block p {
+            font-size: 16px;
+            line-height: 1.9;
+            color: var(--text);
+            margin-bottom: 20px;
+        }
+
+        .text-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            padding: 6px 14px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+        }
+
+        /* Status banner */
+        .status-banner {
+            background: var(--surface);
+            border: 1px solid #ff9900;
+            padding: 20px 25px;
+            margin: 40px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .status-icon {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 20px;
+            color: #ff9900;
+        }
+
+        .status-text {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .status-text strong {
+            color: #ff9900;
+        }
+
+        .status-text a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .status-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Image layouts */
+        .image-single {
+            margin: 40px 0;
+        }
+
+        .image-single img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid var(--border);
+        }
+
+        .image-caption {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--text-dim);
+            margin-top: 12px;
+        }
+
+        .image-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .image-row img {
+            width: 100%;
+            height: auto;
+            border: 1px solid var(--border);
+        }
+
+        .image-row .caption {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: var(--text-dim);
+            margin-top: 8px;
+        }
+
+        /* Spritesheet showcase */
+        .sprite-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .sprite-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 15px;
+        }
+
+        .sprite-card img {
+            width: 100%;
+            height: auto;
+            background: #2a3a20;
+        }
+
+        .sprite-card-caption {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: var(--text-dim);
+            margin-top: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Design docs */
+        .design-docs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .design-docs img {
+            width: 100%;
+            height: auto;
+            border: 1px solid var(--border);
+        }
+
+        /* Video */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            margin: 40px 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Links */
+        .links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .link-btn {
+            display: inline-block;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 12px 24px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .link-btn.secondary {
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+        }
+
+        .link-btn.secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 20px;
+        }
+
+        .footer-nav a {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--text-dim);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.2s;
+        }
+
+        .footer-nav a:hover {
+            color: var(--accent);
+        }
+
+        .footer-text {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .sprite-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .image-row, .design-docs {
+                grid-template-columns: 1fr;
+            }
+
+            .sprite-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .hero {
+                height: 50vh;
+                min-height: 350px;
+            }
+
+            .hero-overlay {
+                padding: 60px 20px 40px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .content {
+                padding: 40px 20px;
+            }
+
+            .hero-meta {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="projects.html" class="back-link">← Projects</a>
+        <span class="nav-title">Elven Tower Defense</span>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="hero">
+        <img src="images/towerdefense/Graslands_level_01.png" alt="Grasslands level map">
+        <div class="hero-overlay">
+            <div class="hero-subtitle">Mobile Game Project</div>
+            <h1 class="hero-title">Elven Tower Defense</h1>
+            <div class="hero-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Role</span>
+                    <span class="meta-value">Game Designer & Artist</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Client</span>
+                    <span class="meta-value">Space Hyena</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Status</span>
+                    <span class="meta-value">Development Paused</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="content">
+        <!-- Overview -->
+        <section class="section">
+            <h2 class="section-title">The Project</h2>
+            <div class="text-block">
+                <p>A tower defense game inspired by the Kingdom Rush saga. I was hired by Space Hyena to handle game design, sprite artwork, and visual direction. The game features elven defenders protecting the forest frontier from orc invasions, with a tiered tower upgrade system and multiple playable zones.</p>
+                <p>My responsibilities included designing the tower progression system, creating character and enemy spritesheets, illustrating level maps, and documenting the overall game structure including UI flows, world maps, and zone progression.</p>
+            </div>
+
+            <div class="status-banner">
+                <span class="status-icon">⏸</span>
+                <span class="status-text"><strong>Development paused.</strong> Space Hyena is currently working on a colony simulator for Steam. Project may resume in the future. <a href="https://spacehyena.com/" target="_blank">spacehyena.com</a></span>
+            </div>
+
+            <div class="tags">
+                <span class="tag">Game Design</span>
+                <span class="tag">Sprite Art</span>
+                <span class="tag">Character Design</span>
+                <span class="tag">Level Design</span>
+                <span class="tag">UI Design</span>
+                <span class="tag">Tower Defense</span>
+            </div>
+        </section>
+
+        <!-- Video -->
+        <section class="section">
+            <h2 class="section-title">Gameplay Prototype</h2>
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/YAuIthfARWA" 
+                    title="Elven Tower Defense Gameplay"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <!-- Character Design -->
+        <section class="section">
+            <h2 class="section-title">Character Design</h2>
+            <div class="text-block">
+                <p>The main character, Elune, is an elven archer who guides the player through the campaign. I started with concept sketches, then created full spritesheets for animation. The visual style balances readability at small sizes with enough detail to feel premium.</p>
+            </div>
+
+            <div class="sprite-grid">
+                <div class="sprite-card">
+                    <img src="images/towerdefense/elune_first_sketch.png" alt="Elune initial concept">
+                    <p class="sprite-card-caption">Initial concept sketch</p>
+                </div>
+                <div class="sprite-card">
+                    <img src="images/towerdefense/elune_spritesheet.png" alt="Elune spritesheet">
+                    <p class="sprite-card-caption">Elune spritesheet</p>
+                </div>
+                <div class="sprite-card">
+                    <img src="images/towerdefense/elven_tower_archer_spritesheet.png" alt="Tower archer spritesheet">
+                    <p class="sprite-card-caption">Tower archer unit</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tower System -->
+        <section class="section">
+            <h2 class="section-title">Tower Development</h2>
+            <div class="text-block">
+                <p>Elven towers are built on trees, reflecting the race's deep connection with nature. The forest spirit can be used to imbue attacks with magic effects. The system features three tiers of upgrades, each changing the tower's appearance and capabilities.</p>
+            </div>
+
+            <div class="image-single">
+                <img src="images/towerdefense/ElventowerDevelopment.png" alt="Elven tower tier progression">
+                <p class="image-caption">Tower tier progression — Watchtower (basic arrows) → Mark of the Forest (extra damage) → Veteran Hunter (extended range)</p>
+            </div>
+        </section>
+
+        <!-- Enemy Design -->
+        <section class="section">
+            <h2 class="section-title">Enemy Forces</h2>
+            <div class="text-block">
+                <p>The goblin army includes multiple unit types with distinct silhouettes and behaviors. The spritesheet covers idle, walk, attack, and death animations for each variant, plus elite and armored versions for later levels.</p>
+            </div>
+
+            <div class="image-single">
+                <img src="images/towerdefense/goblin_army.png" alt="Goblin army spritesheet">
+                <p class="image-caption">Complete goblin army spritesheet — grunts, armored, berserkers, and death animations</p>
+            </div>
+        </section>
+
+        <!-- Game Design Docs -->
+        <section class="section">
+            <h2 class="section-title">Design Documentation</h2>
+            <div class="text-block">
+                <p>Beyond art, I created comprehensive design documents covering game flow, tower types, zone progression, and UI systems. These served as the blueprint for development.</p>
+            </div>
+
+            <div class="design-docs">
+                <div>
+                    <img src="images/towerdefense/Gamedesignv2.png" alt="Game design document">
+                    <p class="image-caption">UI flow and tower system design</p>
+                </div>
+                <div>
+                    <img src="images/towerdefense/ProtoGameDesign.png" alt="Tower types and abilities">
+                    <p class="image-caption">Tower types — Elven, Fire, Earth, Ice</p>
+                </div>
+            </div>
+
+            <div class="design-docs" style="margin-top: 20px;">
+                <div>
+                    <img src="images/towerdefense/GameWorld.png" alt="World map design">
+                    <p class="image-caption">World map structure</p>
+                </div>
+                <div>
+                    <img src="images/towerdefense/Gamedesignv3maps.png" alt="Zone progression">
+                    <p class="image-caption">Zone progression and enemy scaling</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Links -->
+        <section class="section">
+            <h2 class="section-title">Developer</h2>
+            <div class="links">
+                <a href="https://spacehyena.com/" target="_blank" class="link-btn secondary">Space Hyena Website</a>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-nav">
+            <a href="index.html">CV</a>
+            <a href="projects.html">All Projects</a>
+        </div>
+        <p class="footer-text">Aitor Rodriguez · Game Designer</p>
+    </footer>
+</body>
+</html>
