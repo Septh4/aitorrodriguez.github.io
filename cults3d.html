@@ -114,6 +114,24 @@
             flex-wrap: wrap;
         }
 
+        .hero-btn {
+            display: inline-block;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 12px 24px;
+            background: var(--accent);
+            color: var(--bg);
+            text-decoration: none;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .hero-btn:hover {
+            background: var(--text);
+        }
+
         .meta-item {
             font-size: 14px;
             color: var(--text-dim);
@@ -505,6 +523,7 @@
         <div class="hero-overlay">
             <div class="hero-subtitle">3D Printable Models</div>
             <h1 class="hero-title">Cults3D Collection</h1>
+            <a href="https://cults3d.com/es/usuarios/Septha/modelos-3d" target="_blank" class="hero-btn">View on Cults3D</a>
             <div class="hero-meta">
                 <div class="meta-item">
                     <span class="meta-label">Role</span>
