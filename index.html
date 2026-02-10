@@ -155,6 +155,11 @@
         .project-title {
             font-weight: 500;
             font-size: 17px;
+            transition: color 0.2s;
+        }
+
+        .project:hover .project-title {
+            color: var(--accent);
         }
 
         .project-meta {
@@ -251,6 +256,11 @@
             margin-bottom: 30px;
             padding-left: 20px;
             border-left: 1px solid var(--border);
+            transition: border-color 0.2s;
+        }
+
+        .exp-item:hover {
+            border-left-color: var(--accent-dim);
         }
 
         .exp-header {
@@ -264,6 +274,11 @@
 
         .exp-title {
             font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .exp-item:hover .exp-title {
+            color: var(--accent);
         }
 
         .exp-date {
