@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VRGS Chair - Aitor Rodriguez</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111;
+            --text: #e8e8e8;
+            --text-dim: #888;
+            --accent: #00ff88;
+            --accent-dim: #00aa5a;
+            --border: #222;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 15px;
+            font-weight: 300;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, transparent 100%);
+        }
+
+        .back-link {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .nav-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-dim);
+        }
+
+        /* Hero Banner */
+        .hero {
+            width: 100%;
+            height: 70vh;
+            min-height: 500px;
+            position: relative;
+            overflow: hidden;
+            background: #f5f5f5;
+        }
+
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            padding: 60px;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 80px 40px 60px;
+            background: linear-gradient(to top, rgba(10,10,10,1) 0%, rgba(10,10,10,0.85) 50%, transparent 100%);
+        }
+
+        .hero-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 48px;
+            font-weight: 600;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .hero-subtitle {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            font-size: 14px;
+            color: var(--text-dim);
+        }
+
+        .meta-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .meta-value {
+            color: var(--text);
+        }
+
+        /* Content */
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--accent);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Text blocks */
+        .text-block {
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+
+        .text-block p {
+            font-size: 16px;
+            line-height: 1.9;
+            color: var(--text);
+            margin-bottom: 20px;
+        }
+
+        .text-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            padding: 6px 14px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+        }
+
+        /* Image layouts */
+        .image-single {
+            margin: 40px 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 20px;
+        }
+
+        .image-single img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .image-caption {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--text-dim);
+            margin-top: 12px;
+        }
+
+        /* Sketch grid */
+        .sketch-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .sketch-grid img {
+            width: 100%;
+            height: auto;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            padding: 15px;
+        }
+
+        /* Blueprint section */
+        .blueprint-showcase {
+            margin: 50px 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 30px;
+        }
+
+        .blueprint-showcase img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .blueprint-showcase img:last-child {
+            margin-bottom: 0;
+        }
+
+        /* CAD comparison */
+        .cad-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 40px 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 20px;
+        }
+
+        .cad-comparison img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Specs table */
+        .specs-table {
+            margin: 40px 0;
+            border: 1px solid var(--border);
+        }
+
+        .spec-row {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .spec-row:last-child {
+            border-bottom: none;
+        }
+
+        .spec-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 15px 20px;
+            background: var(--surface);
+            color: var(--text-dim);
+            border-right: 1px solid var(--border);
+        }
+
+        .spec-value {
+            padding: 15px 20px;
+            color: var(--text);
+        }
+
+        /* Process grid */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .process-step {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 25px;
+            text-align: center;
+        }
+
+        .process-number {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 36px;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .process-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .process-desc {
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        /* Render section */
+        .render-container {
+            margin: 50px 0;
+            text-align: center;
+        }
+
+        .render-container img {
+            max-width: 600px;
+            width: 100%;
+            height: auto;
+            border: 1px solid var(--border);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 20px;
+        }
+
+        .footer-nav a {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--text-dim);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.2s;
+        }
+
+        .footer-nav a:hover {
+            color: var(--accent);
+        }
+
+        .footer-text {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+            .sketch-grid, .cad-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .hero {
+                height: 50vh;
+                min-height: 350px;
+            }
+
+            .hero img {
+                padding: 30px;
+            }
+
+            .hero-overlay {
+                padding: 60px 20px 40px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .content {
+                padding: 40px 20px;
+            }
+
+            .hero-meta {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .spec-row {
+                grid-template-columns: 1fr;
+            }
+
+            .spec-label {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="projects.html" class="back-link">← Projects</a>
+        <span class="nav-title">VRGS Chair</span>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="hero">
+        <img src="vrgs_cadira_prototip.png" alt="VRGS Chair technical drawing">
+        <div class="hero-overlay">
+            <div class="hero-subtitle">Industrial Design Project</div>
+            <h1 class="hero-title">VRGS Chair</h1>
+            <div class="hero-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Role</span>
+                    <span class="meta-value">Industrial Designer</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Tools</span>
+                    <span class="meta-value">AutoCAD, Blender, TopSolid</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Year</span>
+                    <span class="meta-value">Academic Project</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="content">
+        <!-- Overview -->
+        <section class="section">
+            <h2 class="section-title">Project Overview</h2>
+            <div class="text-block">
+                <p>A furniture design project exploring the intersection of traditional joinery and modern manufacturing techniques. The VRGS Chair features a reclining backrest mechanism and modular construction, designed for both comfort and ease of fabrication.</p>
+                <p>The design process moved from initial hand sketches through detailed technical drawings in AutoCAD, with component modeling in TopSolid for precision manufacturing specifications. The final prototype validates the mechanical reclining system and demonstrates the feasibility of the modular assembly approach.</p>
+            </div>
+            <div class="tags">
+                <span class="tag">Industrial Design</span>
+                <span class="tag">Furniture Design</span>
+                <span class="tag">CAD</span>
+                <span class="tag">Technical Drawing</span>
+                <span class="tag">Product Design</span>
+            </div>
+        </section>
+
+        <!-- Design Process -->
+        <section class="section">
+            <h2 class="section-title">Design Process</h2>
+            <div class="process-grid">
+                <div class="process-step">
+                    <span class="process-number">01</span>
+                    <div class="process-title">Concept Sketches</div>
+                    <div class="process-desc">Initial ideation exploring form, proportions, and the reclining mechanism</div>
+                </div>
+                <div class="process-step">
+                    <span class="process-number">02</span>
+                    <div class="process-title">Technical Drawings</div>
+                    <div class="process-desc">CAD documentation with precise measurements and assembly details</div>
+                </div>
+                <div class="process-step">
+                    <span class="process-number">03</span>
+                    <div class="process-title">Component Design</div>
+                    <div class="process-desc">Individual parts modeled in TopSolid for manufacturing</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Initial Sketches -->
+        <section class="section">
+            <h2 class="section-title">Concept Development</h2>
+            <div class="text-block">
+                <p>The design began with hand sketches exploring the fundamental challenge: creating a reclining mechanism that would be both mechanically sound and visually integrated with the chair's structural frame. Early iterations tested different pivot points and back angles.</p>
+            </div>
+
+            <div class="sketch-grid">
+                <div>
+                    <img src="vrgs_cadira_sketch2.png" alt="Initial concept sketch">
+                    <p class="image-caption">First concept sketch — establishing proportions and basic geometry</p>
+                </div>
+                <div>
+                    <img src="vrgs_cadira_sektch1.png" alt="Refined design sketch">
+                    <p class="image-caption">Pre-plan sketch — refining dimensions and mechanical details</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Drawings -->
+        <section class="section">
+            <h2 class="section-title">Technical Documentation</h2>
+            <div class="text-block">
+                <p>Detailed AutoCAD plans provide orthographic views and mechanical specifications. The drawings include the reclining mechanism geometry (108° angle, 56.02 cm diagonal when reclined) and standardized component dimensions for production.</p>
+            </div>
+
+            <div class="blueprint-showcase">
+                <img src="vrgs_cadira_prototip.png" alt="Chair orthographic views">
+                <p class="image-caption">Orthographic projections at 1:10 scale showing front, side, and top views with dimensional annotations</p>
+            </div>
+        </section>
+
+        <!-- Component Breakdown -->
+        <section class="section">
+            <h2 class="section-title">Component Design</h2>
+            <div class="text-block">
+                <p>The chair is composed of nine distinct components (A1-A9), each designed for straightforward fabrication and assembly. The modular approach allows for material substitution and simplifies manufacturing workflows.</p>
+            </div>
+
+            <div class="blueprint-showcase">
+                <img src="vrgs_cadira_parts.png" alt="Component breakdown and assembly">
+                <p class="image-caption">Complete parts breakdown with isometric assembly view — all components shown at 1:10 scale</p>
+            </div>
+        </section>
+
+        <!-- CAD Model -->
+        <section class="section">
+            <h2 class="section-title">3D Modeling</h2>
+            <div class="text-block">
+                <p>Individual components were modeled in TopSolid for precision manufacturing. The parametric approach ensures consistency across parts and enables rapid iteration on critical dimensions like seat depth and backrest angle.</p>
+            </div>
+
+            <div class="image-single">
+                <img src="TopSolid_Part.png" alt="TopSolid CAD model">
+                <p class="image-caption">Component detail in TopSolid — demonstrating modeling approach for manufacturing</p>
+            </div>
+        </section>
+
+        <!-- Specifications -->
+        <section class="section">
+            <h2 class="section-title">Technical Specifications</h2>
+            <div class="specs-table">
+                <div class="spec-row">
+                    <div class="spec-label">Overall Dimensions</div>
+                    <div class="spec-value">68 cm (W) × 73.75 cm (H) × 68 cm (D)</div>
+                </div>
+                <div class="spec-row">
+                    <div class="spec-label">Seat Height</div>
+                    <div class="spec-value">49 cm (standard sitting height)</div>
+                </div>
+                <div class="spec-row">
+                    <div class="spec-label">Recline Angle</div>
+                    <div class="spec-value">108° from vertical</div>
+                </div>
+                <div class="spec-row">
+                    <div class="spec-label">Frame Construction</div>
+                    <div class="spec-value">Modular wood assembly with mechanical joints</div>
+                </div>
+                <div class="spec-row">
+                    <div class="spec-label">Components</div>
+                    <div class="spec-value">9 individual parts (A1-A9)</div>
+                </div>
+                <div class="spec-row">
+                    <div class="spec-label">Scale</div>
+                    <div class="spec-value">All drawings at 1:10</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Render -->
+        <section class="section">
+            <h2 class="section-title">Visualization</h2>
+            <div class="text-block">
+                <p>A quick Blender render showing the assembled chair with basic materials. This visualization helped validate proportions and spatial relationships between components, though further refinement of surface treatments and finish details would be needed for presentation.</p>
+            </div>
+
+            <div class="render-container">
+                <img src="vrgs_cadira_render.gif" alt="Blender render animation">
+                <p class="image-caption">Blender render — basic material study and assembly validation</p>
+            </div>
+        </section>
+
+        <!-- Reflection -->
+        <section class="section">
+            <h2 class="section-title">Design Reflection</h2>
+            <div class="text-block">
+                <p>This project reinforced the importance of moving fluidly between analog sketching and digital precision tools. The hand sketches captured design intent quickly, while AutoCAD forced resolution of dimensional conflicts early. TopSolid's parametric modeling proved essential for ensuring component compatibility.</p>
+                <p>The reclining mechanism presented the core challenge — balancing structural stability with user comfort. The final 108° angle offers a comfortable recline while keeping the pivot geometry simple enough for reliable fabrication. Future iterations could explore upholstered seating surfaces and refined joinery details.</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-nav">
+            <a href="index.html">CV</a>
+            <a href="projects.html">All Projects</a>
+        </div>
+        <p class="footer-text">Aitor Rodriguez · Game Designer</p>
+    </footer>
+</body>
+</html>
